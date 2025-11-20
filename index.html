@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation API</title>
+    <link rel="icon" type="image/svg+xml" href="assets\droplet.svg" />
+    <style>
+    table, th, td , tbody {border: 1px solid black;}
+    </style>
+</head>
+<body>
+    <table id="Table_dannie">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Данные</th>
+                <th>Удалить</th>
+            </tr>
+        </thead>
+        <tbody id="dannie"></tbody>
+    </table>
+    <button onclick="updateTable()">updateTable</button>
+    <button onclick="getStorage()">getStorage</button>
+    <button onclick="saveItem()">saveItem</button>
+    <button onclick="clearStorage()">clearStorage</button>
+</body>
+<script>
+    let znack = 0
+    function updateTable(){
+        let tb = document.getElementById("dannie")
+        tb.innerHTML = ""
+        for(let key in localStorage){
+            if(!isNaN(key)){
+                let newstrok = document.createElement("tr")
+                tb.appendChild(newstrok)
+                let pokazi_key = document.createElement("td")
+                let pokazi_znachenie = document.createElement("td")
+                let pokazi_knopka = document.createElement("button")
+                pokazi_key.innerText = key
+                pokazi_znachenie.innerText = localStorage[key]
+                pokazi_knopka.innerText = "X"
+
+                pokazi_knopka.addEventListener("click", (key) => {
+                    let kakoi_riad = pokazi_knopka.parentNode
+                    let kakoi_id = pokazi_knopka.parentNode.firstChild.textContent
+
+                    while (kakoi_riad.firstChild) {
+                        kakoi_riad.removeChild(kakoi_riad.firstChild)
+                    }
+
+                    localStorage.removeItem(kakoi_id)
+                })
+
+                newstrok.appendChild(pokazi_key)
+                newstrok.appendChild(pokazi_znachenie)
+                newstrok.appendChild(pokazi_knopka)
+            }
+        }
+    }
+    function getStorage(){
+        console.log(localStorage)
+    }
+    function saveItem(){
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0,
+        };
+
+        function success(pos) {
+            let crd = pos.coords;
+            let geo =  `Широта: ${crd.latitude}, Долгота: ${crd.longitude}`
+            localStorage.setItem(znack, geo)
+            znack++
+            
+        }
+
+        function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
+        updateTable()
+    }
+    function clearStorage(){
+        localStorage.clear()
+        console.log(localStorage)
+        updateTable()
+    }
+</script>
+</html>

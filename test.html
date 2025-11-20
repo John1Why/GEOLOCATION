@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+            </tr>
+        </thead>
+        <tbody id="body_table">
+            <tr>
+                <td>Удали меня!</td>
+                <td>Удали меня!</td>
+                <td>Удали меня!</td>
+                <td>Удали меня!</td>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="del()">Очистить таблицу</button>
+    <button onclick="ret()">reset</button>
+    <script>
+        let ob = {a:"b",c:"d",e:"f",g:"i",}
+        let tb = document.getElementById("body_table")
+        function del(){
+            tb.innerHTML = ""
+        }
+        function ret(){
+            // for(let j = 0; j < Object.keys(ob).length; j++){
+            //     let newstrok = document.createElement("tr")
+            //     tb.appendChild(newstrok)
+            //     // for(let i = 0; i<4; i++){
+            //     //     let newiacheika = document.createElement("td")
+            //     //     newiacheika.innerText = i
+            //     //     newstrok.appendChild(newiacheika)
+            //     // }
+            //     for(let key in ob){
+            //         let pokazi_key = document.createElement("td")
+            //         let pokazi_znachenie = document.createElement("td")
+            //         pokazi_key.innerText = key
+            //         pokazi_znachenie.innerText = ob[key]
+            //         newstrok.appendChild(pokazi_key)
+            //         newstrok.appendChild(pokazi_znachenie)
+            //     }
+            // }
+            // for(let key in ob){
+            //     let newstrok = document.createElement("tr")
+            //     tb.appendChild(newstrok)
+            //     // for(let i = 0; i<4; i++){
+            //     //     let newiacheika = document.createElement("td")
+            //     //     newiacheika.innerText = i
+            //     //     newstrok.appendChild(newiacheika)
+            //     // }
+            //     let pokazi_key = document.createElement("td")
+            //     let pokazi_znachenie = document.createElement("td")
+            //     pokazi_key.innerText = key
+            //     pokazi_znachenie.innerText = ob[key]
+            //     newstrok.appendChild(pokazi_key)
+            //     newstrok.appendChild(pokazi_znachenie)
+            // }
+            // -----------------------------------------------------------------------------------ИТОГ-----------------------------------------------------------------------------------
+            tb.innerHTML = ""
+            for(let key in ob){
+                let newstrok = document.createElement("tr")
+                tb.appendChild(newstrok)
+                let pokazi_key = document.createElement("td")
+                let pokazi_znachenie = document.createElement("td")
+                pokazi_key.innerText = key
+                pokazi_znachenie.innerText = ob[key]
+                newstrok.appendChild(pokazi_key)
+                newstrok.appendChild(pokazi_znachenie)
+            }
+        }
+    </script>
+</body>
+</html>
